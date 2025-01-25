@@ -60,6 +60,7 @@ const PostCard = ({
   isAuthenticated,
 }) => {
   time = timeAgo(time);
+  console.log(author)
   return (
     <div
       key={_id}
@@ -71,7 +72,7 @@ const PostCard = ({
             <img
               src={author?.avatar}
               alt={`${author?.fullName}'s avatar`}
-              className="h-10 w-10 rounded-full"
+              className="h-10 w-10 rounded-full object-cover"
             />
             <div>
               <h3 className="font-semibold text-gray-900 dark:text-white">

@@ -46,7 +46,7 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(0);
-  console.log(posts);
+
   useEffect(() => {
     const fetchUserData = async () => {
       setLoading(true);
@@ -66,6 +66,10 @@ const ProfilePage = () => {
 
     fetchUserData();
   }, [dispatch, userId]);
+
+  useEffect(() => {
+    dispatch(clearPostsState());
+  }, [dispatch]);
   const handleLoadMorePosts = async () => {
     const nextPage = page + 1;
     try {
@@ -76,7 +80,7 @@ const ProfilePage = () => {
     }
   };
 
-  if (loading || !profile.title) {
+  if (loading || !profile?.title) {
     return (
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
         <Loader />

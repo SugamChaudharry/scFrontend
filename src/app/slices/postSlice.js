@@ -12,7 +12,6 @@ export const getPosts = createAsyncThunk(
       if (page) url.searchParams.set("page", page);
       if (limit) url.searchParams.set("limit", limit);
       const response = await apiClient.get(url);
-      console.log("sssssssssssss", response)
       return response.data.data;
     } catch (error) {
       throw new Error(error?.message || error);

@@ -14,7 +14,7 @@ import ResumeForm from "./ResumeForm";
 
 const SignupPage = () => {
   const dispatch = useDispatch();
-  const [showResumeForm, setShowResumeForm] = useState(true);
+  const [showResumeForm, setShowResumeForm] = useState(false);
   const [imagePreview, setImagePreview] = useState({
     avatar: null,
     cover: null,
