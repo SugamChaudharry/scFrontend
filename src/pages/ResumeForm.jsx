@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useDispatch, useSelector } from "react-redux";
-import { createProfile } from "@/app/slices/profileSlice";
+import { changeProfileDetails, createProfile } from "@/app/slices/profileSlice";
 import { selectCurrentStatus } from "@/app/slices/authSlice";
 
 const ResumeForm = ({
@@ -56,9 +56,9 @@ const ResumeForm = ({
   }, [isLogin, navigate]);
 
   const onSubmit = async (data) => {
+    console.log(data)
     try {
-      console.log(data);
-      await dispatch(createProfile(data)).unwrap();
+      await dispatch(changeProfileDetails(data)).unwrap();
 
       if (onSubmitSuccess) {
         onSubmitSuccess();

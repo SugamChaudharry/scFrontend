@@ -60,7 +60,6 @@ const PostCard = ({
   isAuthenticated,
 }) => {
   time = timeAgo(time);
-  console.log(author)
   return (
     <div
       key={_id}

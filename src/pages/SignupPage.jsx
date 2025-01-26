@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import ResumeForm from "./ResumeForm";
+import { createProfile } from "@/app/slices/profileSlice";
 
 const SignupPage = () => {
   const dispatch = useDispatch();
@@ -104,6 +105,7 @@ const SignupPage = () => {
     try {
       await dispatch(registerUser(formDataToSend)).unwrap();
       await dispatch(loginUser(formDataToSend)).unwrap();
+      await dispatch(createProfile({})).unwrap();
       setShowResumeForm(true);
     } catch (error) {
       console.error("Registration failed:", error);
