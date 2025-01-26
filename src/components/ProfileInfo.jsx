@@ -10,7 +10,7 @@ const ProfileInfo = () => {
       <div className="relative">
         <img
           src={currentUser?.coverImage || defaultCover}
-          className="h-24 w-72 bg-blue-600 dark:bg-blue-800 rounded-t-lg relative"
+          className="h-24 w-full bg-blue-600 dark:bg-blue-800 rounded-t-lg relative"
         />
         <img
           src={currentUser?.avatar || defaultAvatar}
