@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 const JobSearchFilter = ({ onFilterChange }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      query: '',
+      query: 'coding',
       employment_types: [],
       date_posted: 'all',
       work_from_home: false,
