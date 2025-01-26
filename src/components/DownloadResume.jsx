@@ -9,70 +9,80 @@ import {
   PDFDownloadLink
 } from '@react-pdf/renderer';
 import { Button } from "@/components/ui/button";
-import { FileDown } from "lucide-react";
+import { FileDown, ExternalLink } from "lucide-react";
 
 // Create styles
 const styles = StyleSheet.create({
   page: {
-    padding: 30,
+    padding: 40,
     fontFamily: 'Helvetica',
+    backgroundColor: '#ffffff',
   },
-  section: {
-    marginBottom: 10,
+  container: {
+    flexDirection: 'column',
+    gap: 20,
   },
   header: {
     marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    paddingBottom: 10,
   },
   name: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
+    color: '#333',
     marginBottom: 5,
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#666',
-    marginBottom: 5,
-  },
-  links: {
-    flexDirection: 'row',
-    gap: 20,
     marginBottom: 10,
   },
-  link: {
-    fontSize: 12,
-    color: '#0066cc',
-    textDecoration: 'none',
+  contact: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    fontSize: 10,
+    color: '#666',
+  },
+  section: {
+    marginBottom: 15,
   },
   sectionTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     paddingBottom: 5,
-  },
-  text: {
-    fontSize: 12,
-    marginBottom: 5,
-    lineHeight: 1.5,
-  },
-  experienceItem: {
     marginBottom: 10,
+    color: '#333',
   },
-  experienceTitle: {
+  itemContainer: {
+    marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
+  },
+  itemTitle: {
     fontSize: 14,
     fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 3,
   },
-  experienceCompany: {
-    fontSize: 12,
-    fontStyle: 'italic',
-  },
-  experienceDate: {
+  itemSubtitle: {
     fontSize: 12,
     color: '#666',
+    marginBottom: 3,
   },
-  educationItem: {
-    marginBottom: 10,
+  itemDetails: {
+    fontSize: 10,
+    color: '#666',
+    marginBottom: 5,
+  },
+  description: {
+    fontSize: 10,
+    lineHeight: 1.5,
+    color: '#333',
   },
   skillsContainer: {
     flexDirection: 'row',
@@ -80,10 +90,25 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   skill: {
-    fontSize: 12,
+    fontSize: 10,
     backgroundColor: '#f0f0f0',
-    padding: '4 8',
+    paddingVertical: 2,
+    paddingHorizontal: 6,
     borderRadius: 4,
+    color: '#333',
+  },
+  links: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 5,
+  },
+  link: {
+    fontSize: 10,
+    color: '#0066cc',
+    textDecoration: 'none',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
   },
 });
 
@@ -93,32 +118,50 @@ const ResumePDF = ({ profile }) => (
     <Page size="A4" style={styles.page}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.name}>Sugam Chaudhary</Text>
+        <Text style={styles.name}>{profile.owner.fullName}</Text>
         <Text style={styles.title}>{profile.title}</Text>
+        
+        <View style={styles.contact}>
+          <Text>{profile.location}</Text>
+          <Text>{profile.owner.userName}</Text>
+        </View>
+
         <View style={styles.links}>
-          <Link style={styles.link} src={profile.githubUrl}>GitHub</Link>
-          <Link style={styles.link} src={profile.linkedinUrl}>LinkedIn</Link>
+          {profile.githubUrl && (
+            <Link style={styles.link} src={profile.githubUrl}>
+              <Text>GitHub</Text>
+            </Link>
+          )}
+          {profile.linkedinUrl && (
+            <Link style={styles.link} src={profile.linkedinUrl}>
+              <Text>LinkedIn</Text>
+            </Link>
+          )}
+          {profile.links?.map((link, index) => (
+            <Link key={index} style={styles.link} src={link.url}>
+              <Text>{link.name}</Text>
+            </Link>
+          ))}
         </View>
       </View>
 
       {/* About Section */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>About</Text>
-        <Text style={styles.text}>{profile.about}</Text>
+        <Text style={styles.description}>{profile.about}</Text>
       </View>
 
       {/* Experience Section */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Experience</Text>
-        {profile.experience.map((exp, index) => (
-          <View key={index} style={styles.experienceItem}>
-            <Text style={styles.experienceTitle}>{exp.title}</Text>
-            <Text style={styles.experienceCompany}>{exp.company}</Text>
-            <Text style={styles.experienceDate}>
-              {new Date(exp.startDate).toLocaleDateString()} - 
-              {new Date(exp.endDate).toLocaleDateString()}
+        {profile.experience?.map((exp, index) => (
+          <View key={index} style={styles.itemContainer}>
+            <Text style={styles.itemTitle}>{exp.title}</Text>
+            <Text style={styles.itemSubtitle}>{exp.company}</Text>
+            <Text style={styles.itemDetails}>
+              {exp.startDate} - {exp.endDate}
             </Text>
-            <Text style={styles.text}>{exp.description}</Text>
+            <Text style={styles.description}>{exp.description}</Text>
           </View>
         ))}
       </View>
@@ -126,13 +169,13 @@ const ResumePDF = ({ profile }) => (
       {/* Education Section */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Education</Text>
-        {profile.education.map((edu, index) => (
-          <View key={index} style={styles.educationItem}>
-            <Text style={styles.experienceTitle}>
+        {profile.education?.map((edu, index) => (
+          <View key={index} style={styles.itemContainer}>
+            <Text style={styles.itemTitle}>
               {edu.degree} in {edu.field}
             </Text>
-            <Text style={styles.experienceCompany}>{edu.school}</Text>
-            <Text style={styles.experienceDate}>
+            <Text style={styles.itemSubtitle}>{edu.school}</Text>
+            <Text style={styles.itemDetails}>
               Graduating: {edu.graduationYear}
             </Text>
           </View>
@@ -143,7 +186,7 @@ const ResumePDF = ({ profile }) => (
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Skills</Text>
         <View style={styles.skillsContainer}>
-          {profile?.skills?.map((skill, index) => (
+          {profile.skills?.map((skill, index) => (
             <Text key={index} style={styles.skill}>
               {skill}
             </Text>
@@ -158,7 +201,7 @@ const ResumePDF = ({ profile }) => (
 const DownloadResume = ({ profile }) => (
   <PDFDownloadLink
     document={<ResumePDF profile={profile} />}
-    fileName="resume.pdf"
+    fileName={`${profile.owner.userName}-resume.pdf`}
   >
     {({ loading }) => (
       <Button 
