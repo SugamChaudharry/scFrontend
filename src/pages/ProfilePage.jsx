@@ -68,7 +68,10 @@ const ProfilePage = () => {
 
     fetchUserData();
   }, [dispatch, userId]);
-
+  const handleConnect = async () => {
+    await dispatch(tonngleSubscription(userId)).unwrap();
+    dispatch(getSubscribers(userId));
+  };
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center">
@@ -169,10 +172,15 @@ const ProfilePage = () => {
                 </Button>
               ) : (
                 <Button
+                  onClick={() => handleConnect()}
                   variant="default"
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  className={
+                    isSubscribed
+                      ? "bg-gray-600 hover:bg-gray-700 text-white"
+                      : "bg-blue-600 hover:bg-blue-700 text-white"
+                  }
                 >
-                  Connect
+                  {isSubscribed ? "Connected" : "Connect"}
                 </Button>
               )}
             </div>
