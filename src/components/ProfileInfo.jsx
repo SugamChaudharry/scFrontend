@@ -1,10 +1,17 @@
+import { useEffect } from "react";
 import defaultAvatar from "../assets/avatar.png";
 import defaultCover from "../assets/cover.png";
 import { selectCurrentUser } from "@/app/slices/authSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSubscribers, selectSubscribers } from "@/app/slices/profileSlice";
 
 const ProfileInfo = () => {
   const currentUser = useSelector(selectCurrentUser);
+  const connections = useSelector(selectSubscribers)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (currentUser) dispatch(getSubscribers( currentUser._id ));
+  }, [dispatch, currentUser]);
   return (
     <div className=" flex flex-col">
       <div className="relative">
@@ -30,19 +37,13 @@ const ProfileInfo = () => {
         </p>
         <div className="mt-4 border-t dark:border-gray-700 pt-4">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-500 dark:text-gray-400">
-              Profile views
-            </span>
-            <span className="text-gray-900 dark:text-white font-medium">
-              {currentUser?.views || 0}
-            </span>
           </div>
           <div className="flex justify-between text-sm mt-2">
             <span className="text-gray-500 dark:text-gray-400">
               Connections
             </span>
             <span className="text-gray-900 dark:text-white font-medium">
-              {currentUser?.connections || 0}
+              {connections || 0}
             </span>
           </div>
         </div>

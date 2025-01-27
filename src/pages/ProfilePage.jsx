@@ -26,7 +26,6 @@ import {
   selectSubscribers,
   tonngleSubscription,
 } from "@/app/slices/profileSlice";
-import { clearPostsState, getPosts, selectPosts } from "@/app/slices/postSlice";
 import DownloadResume from "@/components/DownloadResume";
 import ResumeForm from "./ResumeForm";
 
@@ -56,7 +55,6 @@ const ProfilePage = () => {
     const fetchUserData = async () => {
       setLoading(true);
       try {
-        dispatch(clearPostsState());
         await dispatch(getProfile(userId)).unwrap();
         dispatch(getSubscribers(userId));
       } catch (error) {
