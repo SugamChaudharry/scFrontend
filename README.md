@@ -24,13 +24,6 @@ A modern professional networking platform built with React and Vite, featuring j
 - Track latest job postings
 - Job application tracking
 
-### Company Interview Questions
-- Browse company-specific interview questions
-- Filter questions by difficulty (Easy, Medium, Hard)
-- Search questions by company or content
-- View question statistics (asked count, likes)
-- Categorized by question type (System Design, Algorithms, etc.)
-
 ### Social Features
 - Create and share posts
 - Image upload support
