@@ -12,7 +12,7 @@ import { store } from "./app/store";
 import JobListings from "./pages/JobListing";
 import AuthLayout from "./components/AuthLayout";
 import ProfilePage from "./pages/ProfilePage";
-import CompanyQuestionsPage from "./pages/CompanyQuestionsPage";
+import { Analytics } from "@vercel/analytics/react"
 
 const router = createBrowserRouter([
   {
@@ -32,14 +32,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={true}>
             <JobListings />
-          </AuthLayout>
-        ),
-      },
-      {
-        path: "/companyQuestions",
-        element: (
-          <AuthLayout authentication={true}>
-            <CompanyQuestionsPage />
           </AuthLayout>
         ),
       },
@@ -73,6 +65,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
+      <Analytics />
       <RouterProvider router={router} />
     </Provider>
   </StrictMode>,
