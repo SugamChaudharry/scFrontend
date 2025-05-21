@@ -48,12 +48,6 @@ const NavBar = ({ searchPlaceHolder }) => {
               >
                 Jobs
               </Link>
-              <Link
-                to="/CompanyQuestions"
-                className="text-gray-500 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 font-medium"
-              >
-                Questions
-              </Link>
               {isAuthenticated && (
                 <Link
                   to={`/profile/${user?._id}`}
@@ -63,19 +57,19 @@ const NavBar = ({ searchPlaceHolder }) => {
                 </Link>
               )}
             </div>
-            
+
             {/* Mobile Menu Toggle */}
-            <button 
+            <button
               className="md:hidden"
               onClick={toggleMobileMenu}
             >
               <Menu className="h-6 w-6 text-gray-600 dark:text-gray-300" />
             </button>
           </div>
-          
+
           {/* Search Bar */}
           <SearchBar searchPlaceHolder={searchPlaceHolder} />
-          
+
           {/* Right side buttons */}
           <div className="flex items-center space-x-4">
             <ThemeToggle />
@@ -101,7 +95,7 @@ const NavBar = ({ searchPlaceHolder }) => {
             </button>
           </div>
         </div>
-        
+
         {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden absolute left-0 right-0 top-16 bg-white dark:bg-gray-800 shadow-md">
